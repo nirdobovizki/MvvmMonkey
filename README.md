@@ -37,6 +37,27 @@ View:
         <TextBlock TextWrapping="Wrap" Text="Bind to method demo"/>
     </Button>
 
+Password Binding
+
+Bind PasswordBox.Password to a secure string
+
+View Model:
+
+    class PasswordViewModel 
+    {
+        public SecureString Password { get; set; }
+    }
+
+View: 
+
+    <PasswordBox 
+	     monkey:PasswordBinding.IsPasswordBindingEnabled="True" 
+		 monkey:PasswordBinding.Password="{Binding Password}"/>
+
+    <Button Command="{Binding MethodBindingDemo}">
+        <TextBlock TextWrapping="Wrap" Text="Bind to method demo"/>
+    </Button>
+
 
 View Locator
 ---
