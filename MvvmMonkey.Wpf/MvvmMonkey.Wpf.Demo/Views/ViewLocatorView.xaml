@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="NirDobovizki.MvvmMonkey.Wpf.Demo.Views.ViewLocatorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.ColumnSpan="2" TextWrapping="Wrap" FontSize="17">The button you just clicked found the view for the view model with no mapping anywhere in the code</TextBlock>
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="1">
+            <TextBlock >View Model</TextBlock>
+        </Border>
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="1" Grid.Column="1">
+            <TextBlock >View</TextBlock>
+        </Border>
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="2" >
+            <TextBlock TextWrapping="Wrap" FontFamily="Consolas" xml:space="preserve">
+class DemoSelectionViewModel : INotifyPropertyChanged
+{
+    public void ViewLocatorDemo()
+    {
+        <Run Foreground="red">Child = new ViewLocatorViewModel();</Run>
+    }
+}</TextBlock>
+        </Border>
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="2" Grid.Column="1" >
+            <TextBlock TextWrapping="Wrap" FontFamily="Consolas" xml:space="preserve">
+&lt;monkey:ViewLocator DataContext="<Run Foreground="red">{Binding Child}</Run>"/&gt;
+
+            </TextBlock>
+        </Border>
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap">
+            The ViewLocator, when given an object using DataContext - if that object's calss name end with "ViewModel", will find a type
+            in the same assembly with the same name but that ends with "View" and automatically create an instance of it
+        </TextBlock>
+    </Grid>
+</UserControl>
