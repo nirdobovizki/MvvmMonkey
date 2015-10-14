@@ -38,6 +38,7 @@ View:
     </Button>
 
 Password Binding
+---
 
 Bind PasswordBox.Password to a secure string
 
@@ -54,9 +55,21 @@ View:
 	     monkey:PasswordBinding.IsPasswordBindingEnabled="True" 
 		 monkey:PasswordBinding.Password="{Binding Password}"/>
 
-    <Button Command="{Binding MethodBindingDemo}">
-        <TextBlock TextWrapping="Wrap" Text="Bind to method demo"/>
-    </Button>
+
+Enum binding
+---
+
+Using an enum with a radio button group is extreamly annoying and error-prone if you use view model bool properties.
+
+Luckly, with this converter you can bind multiple radio buttons to the same enum property
+
+    <UserControl.Resources>
+        <monkey:EnumValueIsCheckedConverter x:Key="EnumRadioConverter"/>
+    </UserControl.Resources>
+
+	<RadioButton GroupName="MyGrp" IsChecked="{Binding TheValue, Converter={StaticResource EnumRadioConverter}, ConverterParameter={x:Static model:AnEnum.First}}">First</RadioButton>
+	<RadioButton GroupName="MyGrp" IsChecked="{Binding TheValue, Converter={StaticResource EnumRadioConverter}, ConverterParameter={x:Static model:AnEnum.Second}}">Second</RadioButton>
+	<RadioButton GroupName="MyGrp" IsChecked="{Binding TheValue, Converter={StaticResource EnumRadioConverter}, ConverterParameter={x:Static model:AnEnum.Third}}">Third</RadioButton>
 
 
 View Locator

@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Advanced\CommandMethodPropertyDescriptor.cs" />
+    <Compile Include="EnumValueIsCheckedConverter.cs" />
     <Compile Include="MethodBinding.cs" />
     <Compile Include="Advanced\MethodBindingTypeDescriptor.cs" />
     <Compile Include="PasswordBinding.cs" />

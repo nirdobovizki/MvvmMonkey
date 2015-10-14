@@ -53,7 +53,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SampleModels\AnEnum.cs" />
     <Compile Include="ViewModels\DemoSelectionViewModel.cs" />
+    <Compile Include="ViewModels\EnumBindingViewModel.cs" />
     <Compile Include="ViewModels\MethodBindingTaskViewModel.cs" />
     <Compile Include="ViewModels\MethodBindingViewModel.cs" />
     <Compile Include="ViewModels\NotifyViewModel.cs" />
@@ -61,6 +63,9 @@
     <Compile Include="ViewModels\ViewLocatorViewModel.cs" />
     <Compile Include="Views\DemoSelectionView.xaml.cs">
       <DependentUpon>DemoSelectionView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\EnumBindingView.xaml.cs">
+      <DependentUpon>EnumBindingView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MethodBindingTaskView.xaml.cs">
       <DependentUpon>MethodBindingTaskView.xaml</DependentUpon>
@@ -92,6 +97,10 @@
     <Page Include="Views\DemoSelectionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\EnumBindingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\MethodBindingTaskView.xaml">
       <SubType>Designer</SubType>

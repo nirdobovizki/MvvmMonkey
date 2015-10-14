@@ -35,6 +35,11 @@ namespace NirDobovizki.MvvmMonkey.Wpf.Demo.ViewModels
             Child = new PasswordViewModel();
         }
 
+        public void EnumBindingDemo()
+        {
+            Child = new EnumBindingViewModel();
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private object _child;

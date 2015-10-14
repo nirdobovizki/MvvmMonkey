@@ -27,6 +27,9 @@
             <Button Command="{Binding PasswordDemo}">
                 <TextBlock TextWrapping="Wrap" Text="PasswordBox data binding"/>
             </Button>
+            <Button Command="{Binding EnumBindingDemo}">
+                <TextBlock TextWrapping="Wrap" Text="Enum binding"/>
+            </Button>
         </UniformGrid>
         <monkey:ViewLocator DataContext="{Binding Child}" Grid.Row="1"/>
     </Grid>
