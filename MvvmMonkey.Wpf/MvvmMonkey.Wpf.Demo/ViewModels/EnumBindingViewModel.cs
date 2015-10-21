@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace NirDobovizki.MvvmMonkey.Wpf.Demo.ViewModels
 {
+    [DisplayName("Enum Binding")]
     class EnumBindingViewModel : INotifyPropertyChanged
     {
         private AnEnum _theValue;

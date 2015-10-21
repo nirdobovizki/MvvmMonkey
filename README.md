@@ -56,7 +56,7 @@ View:
 		 monkey:PasswordBinding.Password="{Binding Password}"/>
 
 
-Enum binding
+Enum Binding
 ---
 
 Using an enum with a radio button group is extreamly annoying and error-prone if you use view model bool properties.

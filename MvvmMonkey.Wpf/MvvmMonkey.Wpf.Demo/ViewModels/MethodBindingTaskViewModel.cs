@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace NirDobovizki.MvvmMonkey.Wpf.Demo.ViewModels
 {
     [TypeDescriptionProvider(typeof(MethodBinding))]
+    [DisplayName("Method Binding with Tasks")]
     class MethodBindingTaskViewModel
     {
         public Task CallDelay()

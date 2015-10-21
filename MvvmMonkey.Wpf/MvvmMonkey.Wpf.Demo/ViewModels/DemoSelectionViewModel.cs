@@ -8,36 +8,19 @@ using System.Threading.Tasks;
 namespace NirDobovizki.MvvmMonkey.Wpf.Demo.ViewModels
 {
     [TypeDescriptionProvider(typeof(MethodBinding))]
-    class DemoSelectionViewModel : INotifyPropertyChanged
+    public class DemoSelectionViewModel : INotifyPropertyChanged
     {
-        public void MethodBindingDemo()
-        {
-            Child = new MethodBindingViewModel();
-        }
+        public IList<DemoItemViewModel> Demos { get; private set; }
 
-        public void MethodBindingTaskDemo()
+        public DemoSelectionViewModel()
         {
-            Child = new MethodBindingTaskViewModel();
-        }
-
-        public void ViewLocatorDemo()
-        {
-            Child = new ViewLocatorViewModel();
-        }
-
-        public void NotifyDemo()
-        {
-            Child = new NotifyViewModel();
-        }
-
-        public void PasswordDemo()
-        {
-            Child = new PasswordViewModel();
-        }
-
-        public void EnumBindingDemo()
-        {
-            Child = new EnumBindingViewModel();
+            Demos = GetType().
+                Assembly.
+                GetTypes().
+                Select(o => new { Type = o, NameAttr = (DisplayNameAttribute)o.GetCustomAttributes(typeof(DisplayNameAttribute), false).FirstOrDefault() }).
+                Where(o => o.NameAttr != null).
+                Select(o => new DemoItemViewModel(this, o.NameAttr.DisplayName, o.Type)).
+                ToList();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace NirDobovizki.MvvmMonkey.Wpf.Demo.ViewModels
 {
+    [DisplayName("Password Binding")]
     public class PasswordViewModel : INotifyPropertyChanged
     {
         private SecureString _password;

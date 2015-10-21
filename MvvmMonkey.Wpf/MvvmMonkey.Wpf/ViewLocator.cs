@@ -12,6 +12,27 @@ namespace NirDobovizki.MvvmMonkey
     {
         private static Dictionary<Type, Type> _viewByViewModel = new Dictionary<Type, Type>();
 
+        public static DependencyProperty HasViewsProperty = DependencyProperty.RegisterAttached("HasViews", typeof(bool), typeof(ViewLocator), new PropertyMetadata(false, HasViewsChanged));
+        public static bool GetHasViews(ItemsControl element)
+        {
+            return (bool)element.GetValue(HasViewsProperty);
+        }
+        public static void SetHasViews(ItemsControl element, bool value)
+        {
+            element.SetValue(HasViewsProperty, value);
+        }
+        private static void HasViewsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            if (!(bool)e.NewValue) return;
+            var itemControl = d as ItemsControl;
+            if (d == null) return;
+            if (itemControl.ItemTemplate != null) return;
+            itemControl.ItemTemplate = new DataTemplate()
+            {
+                VisualTree = new FrameworkElementFactory(typeof(ViewLocator))
+            };
+        }
+
         public ViewLocator()
         {
             DataContextChanged += OnDataContextChanged;

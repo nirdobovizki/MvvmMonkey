@@ -11,26 +11,13 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <UniformGrid Rows="1" MinHeight="50">
-            <Button Command="{Binding MethodBindingDemo}">
-                <TextBlock TextWrapping="Wrap" Text="Bind to method demo"/>
-            </Button>
-            <Button Command="{Binding MethodBindingTaskDemo}">
-                <TextBlock TextWrapping="Wrap">Bind to method demo<LineBreak/>with tasks</TextBlock>
-            </Button>
-            <Button Command="{Binding ViewLocatorDemo}">
-                <TextBlock TextWrapping="Wrap" Text="View locator demo"/>
-            </Button>
-            <Button Command="{Binding NotifyDemo}">
-                <TextBlock TextWrapping="Wrap" Text="Notify property changed demo"/>
-            </Button>
-            <Button Command="{Binding PasswordDemo}">
-                <TextBlock TextWrapping="Wrap" Text="PasswordBox data binding"/>
-            </Button>
-            <Button Command="{Binding EnumBindingDemo}">
-                <TextBlock TextWrapping="Wrap" Text="Enum binding"/>
-            </Button>
-        </UniformGrid>
+        <ItemsControl ItemsSource="{Binding Demos}" monkey:ViewLocator.HasViews="True">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <UniformGrid Rows="1" MinHeight="50"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
         <monkey:ViewLocator DataContext="{Binding Child}" Grid.Row="1"/>
     </Grid>
 </UserControl>

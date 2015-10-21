@@ -54,6 +54,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="SampleModels\AnEnum.cs" />
+    <Compile Include="ViewModels\DemoItemViewModel.cs" />
     <Compile Include="ViewModels\DemoSelectionViewModel.cs" />
     <Compile Include="ViewModels\EnumBindingViewModel.cs" />
     <Compile Include="ViewModels\MethodBindingTaskViewModel.cs" />
@@ -61,6 +62,9 @@
     <Compile Include="ViewModels\NotifyViewModel.cs" />
     <Compile Include="ViewModels\PasswordViewModel.cs" />
     <Compile Include="ViewModels\ViewLocatorViewModel.cs" />
+    <Compile Include="Views\DemoItemView.xaml.cs">
+      <DependentUpon>DemoItemView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\DemoSelectionView.xaml.cs">
       <DependentUpon>DemoSelectionView.xaml</DependentUpon>
     </Compile>
@@ -94,6 +98,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\DemoItemView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\DemoSelectionView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
