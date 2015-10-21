@@ -79,6 +79,9 @@ The 'ViewLocator' control will automatically find the view for your view model
 without any mapping (if your view model ends with "ViewModel" your view has the same name but ends with "View"
 and they are both in the same assembly)
 
+Also, if you set the ViewLocator.HasViews attached property on and ItemsControl (ListBox, etc.) it will add a data template
+with a ViewLocator so you can just bind a list of view models to ItemSource and the views will show up inside the list
+
 View Model:
 
     [TypeDescriptionProvider(typeof(MethodBinding))]
