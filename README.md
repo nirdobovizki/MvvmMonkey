@@ -119,6 +119,35 @@ change you class heirarcy to use it
     }
 
 
+Window Manager
+---
+
+One of the most anoying thing bout MVVM is that there isn't really a good way to open and close windows.
+
+Either you break the View-View-Model seperation, hurt the system testebility or use an overkill messaging system.
+
+The WindowManager addresses all of that, it has an interface like a simple light-weight system that doesn't really support testing 
+but has a replacable implementation so it cn suport anything.
+
+By default WindowManager uses ViewLocator to show the view inside the window
+
+To open a view model in another window:
+
+   WindowManager.OpenDialog(new WindowManagerChildViewModel());                
+
+or
+
+   WindowManager.OpenNonModal(new WindowManagerChildViewModel());
+
+To close:
+
+   WindowManager.Close(this);
+
+To replace the windows manager code for unit testing or diffrent windowing strategy:
+
+   WindowManager.SetImplementation(myWindowManager);
+
+
 Licensing
 ---
 

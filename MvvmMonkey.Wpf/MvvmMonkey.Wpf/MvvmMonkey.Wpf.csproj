@@ -44,6 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Advanced\CommandMethodPropertyDescriptor.cs" />
+    <Compile Include="Advanced\IWindowManagerImpl.cs" />
+    <Compile Include="Advanced\MultiWinWindowManagerDefaultWindow.xaml.cs">
+      <DependentUpon>MultiWinWindowManagerDefaultWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Advanced\MultiWinWindowManagerImpl.cs" />
     <Compile Include="EnumValueIsCheckedConverter.cs" />
     <Compile Include="MethodBinding.cs" />
     <Compile Include="Advanced\MethodBindingTypeDescriptor.cs" />
@@ -54,6 +59,13 @@
     <Compile Include="Advanced\SimplePropertyDescriptor.cs" />
     <Compile Include="Advanced\TaskDelegateCommand.cs" />
     <Compile Include="ViewLocator.cs" />
+    <Compile Include="WindowManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Advanced\MultiWinWindowManagerDefaultWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
