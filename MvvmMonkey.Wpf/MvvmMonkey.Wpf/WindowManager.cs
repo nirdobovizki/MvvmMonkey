@@ -16,14 +16,14 @@ namespace NirDobovizki.MvvmMonkey
             _impl = impl;
         }
 
-        public static void OpenNonModal(object viewModel)
+        public static void OpenNonModal(object viewModel, bool useViewModelAsContent = false)
         {
-            _impl.OpenNonModal(viewModel);
+            _impl.OpenNonModal(viewModel, useViewModelAsContent);
         }
 
-        public static bool? OpenDialog(object viewModel)
+        public static bool? OpenDialog(object viewModel, bool useViewModelAsContent = false)
         {
-            return _impl.OpenDialog(viewModel);
+            return _impl.OpenDialog(viewModel, useViewModelAsContent);
         }
 
         public static void Close(object viewModel, bool? result = null)

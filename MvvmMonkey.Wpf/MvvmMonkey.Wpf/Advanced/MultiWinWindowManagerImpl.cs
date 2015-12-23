@@ -34,18 +34,28 @@ namespace NirDobovizki.MvvmMonkey.Advanced
             }
         }
 
-        public bool? OpenDialog(object viewModel)
+        public bool? OpenDialog(object viewModel, bool useViewModelAsContent = false)
         {
             var win = (Window)Activator.CreateInstance(WindowType);
             win.DataContext = viewModel;
+
+            if (useViewModelAsContent)
+            {
+                win.Content = viewModel;
+            }
             win.ShowInTaskbar = Application.Current.Windows.Count == 0;
             return win.ShowDialog();
         }
 
-        public void OpenNonModal(object viewModel)
+        public void OpenNonModal(object viewModel, bool useViewModelAsContent = false)
         {
             var win = (Window)Activator.CreateInstance(WindowType);
             win.DataContext = viewModel;
+
+            if (useViewModelAsContent)
+            {
+                win.Content = viewModel;
+            }
             win.Show();
         }
     }
