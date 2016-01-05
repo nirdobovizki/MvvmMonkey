@@ -34,7 +34,7 @@ namespace NirDobovizki.MvvmMonkey.Advanced
             }
         }
 
-        public bool? OpenDialog(object viewModel, bool useViewModelAsContent = false)
+        public bool? OpenDialog(object viewModel, bool useViewModelAsContent = false, bool setMainWindowAsOwner = true)
         {
             var win = (Window)Activator.CreateInstance(WindowType);
             win.DataContext = viewModel;
@@ -44,6 +44,10 @@ namespace NirDobovizki.MvvmMonkey.Advanced
                 win.Content = viewModel;
             }
             win.ShowInTaskbar = Application.Current.Windows.Count == 0;
+            if (setMainWindowAsOwner)
+            {
+                win.Owner = Application.Current.MainWindow;
+            }
             return win.ShowDialog();
         }
 
