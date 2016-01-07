@@ -38,6 +38,11 @@ namespace NirDobovizki.MvvmMonkey.Advanced
         {
             var win = (Window)Activator.CreateInstance(WindowType);
             win.DataContext = viewModel;
+            if (viewModel is IWindowAware)
+            {
+                win.Closing += Win_Closing;
+                win.Closed += Win_Closed;
+            }
 
             if (useViewModelAsContent)
             {
@@ -51,6 +56,26 @@ namespace NirDobovizki.MvvmMonkey.Advanced
             return win.ShowDialog();
         }
 
+        private void Win_Closed(object sender, EventArgs e)
+        {
+            var window = (Window) sender;
+            window.Closing -= Win_Closing;
+            window.Closed -= Win_Closed;
+            var windowAware = window.DataContext as IWindowAware;
+            windowAware?.WindowClosed();
+        }
+
+        private void Win_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var window = (Window)sender;
+            var windowAware = window.DataContext as IWindowAware;
+            if (windowAware != null)                  
+            {
+                e.Cancel = windowAware.CanWindowClose();
+
+            }
+        }
+
         public void OpenNonModal(object viewModel, bool useViewModelAsContent = false)
         {
             var win = (Window)Activator.CreateInstance(WindowType);
@@ -62,5 +87,11 @@ namespace NirDobovizki.MvvmMonkey.Advanced
             }
             win.Show();
         }
+    }
+
+    public interface IWindowAware
+    {
+        void WindowClosed();
+        bool CanWindowClose();
     }
 }
