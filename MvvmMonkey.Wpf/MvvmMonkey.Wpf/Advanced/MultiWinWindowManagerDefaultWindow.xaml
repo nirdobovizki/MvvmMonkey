@@ -7,7 +7,7 @@
              xmlns:monkey="clr-namespace:NirDobovizki.MvvmMonkey"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             Title="{Binding WindowTitle}">
+             Title="{Binding WindowTitle}" Width="{Binding WindowWidth}" Height="{Binding WindowHeight}">
     <Grid>
         <monkey:ViewLocator/>
     </Grid>
