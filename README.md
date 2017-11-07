@@ -75,27 +75,24 @@ Luckly, with this converter you can bind multiple radio buttons to the same enum
 View Locator
 ---
 
-The 'ViewLocator' control will automatically find the view for your view model
+The 'ViewLocator' class will automatically find the view for your view model
 without any mapping (if your view model ends with "ViewModel" your view has the same name but ends with "View"
 and they are both in the same assembly)
 
-Also, if you set the ViewLocator.HasViews attached property on and ItemsControl (ListBox, etc.) it will add a data template
-with a ViewLocator so you can just bind a list of view models to ItemSource and the views will show up inside the list
+When you call 'ViewLocator.RegisterViews' it will had a data template for each View/ViewModel pair it can find
+in the passed assembly to a resource collection (that should be your app's Resources property)
 
-View Model:
+Usage:
 
-    [TypeDescriptionProvider(typeof(MethodBinding))]
-    class DemoSelectionViewModel : INotifyPropertyChanged
+    public partial class App : Application
     {
-        public void MethodBindingDemo()
+        protected override void OnStartup(StartupEventArgs e)
         {
-            Child = new MethodBindingViewModel();
+            ViewLocator.RegisterViews(Resources, typeof(App).Assembly);
+            base.OnStartup(e);
         }
     }
 
-View: 
-
-	<mvvm:ViewLocator DataContext="{Binding Child}"/>
 
 Notify Property Changed
 ---
@@ -133,19 +130,19 @@ By default WindowManager uses ViewLocator to show the view inside the window
 
 To open a view model in another window:
 
-   WindowManager.OpenDialog(new WindowManagerChildViewModel());                
+    WindowManager.OpenDialog(new WindowManagerChildViewModel());                
 
 or
 
-   WindowManager.OpenNonModal(new WindowManagerChildViewModel());
+    WindowManager.OpenNonModal(new WindowManagerChildViewModel());
 
 To close:
 
-   WindowManager.Close(this);
+    WindowManager.Close(this);
 
 To replace the windows manager code for unit testing or diffrent windowing strategy:
 
-   WindowManager.SetImplementation(myWindowManager);
+    WindowManager.SetImplementation(myWindowManager);
 
 
 Licensing

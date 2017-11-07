@@ -11,13 +11,13 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ItemsControl ItemsSource="{Binding Demos}" monkey:ViewLocator.HasViews="True">
+        <ItemsControl ItemsSource="{Binding Demos}">
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <UniformGrid Rows="1" MinHeight="50"/>
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-        <monkey:ViewLocator DataContext="{Binding Child}" Grid.Row="1"/>
+        <ContentControl Content="{Binding Child}" Grid.Row="1"/>
     </Grid>
 </UserControl>

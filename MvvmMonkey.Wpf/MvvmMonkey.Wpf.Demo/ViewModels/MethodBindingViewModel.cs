@@ -9,11 +9,35 @@ namespace NirDobovizki.MvvmMonkey.Wpf.Demo.ViewModels
 {
     [TypeDescriptionProvider(typeof(MethodBinding))]
     [DisplayName("Method Binding")]
-    public class MethodBindingViewModel 
+    public class MethodBindingViewModel : INotifyPropertyChanged
     {
         public void Fire()
         {
             System.Windows.MessageBox.Show("yey");
         }
+
+        
+
+        public void DoSomething()
+        {
+            System.Windows.MessageBox.Show("did something");
+        }
+
+        private bool _canDoSomething = true;
+        public bool CanDoSomething
+        {
+            get { return _canDoSomething; }
+            set
+            {
+                if (_canDoSomething != value)
+                {
+                    _canDoSomething = value;
+                    PropertyChange.Notify(this, PropertyChanged);
+                }
+            }
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

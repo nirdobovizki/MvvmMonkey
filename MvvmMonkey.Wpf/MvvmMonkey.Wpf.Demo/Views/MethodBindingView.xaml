@@ -10,6 +10,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -17,13 +18,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <TextBlock Grid.ColumnSpan="2" TextWrapping="Wrap" FontSize="17">The button you just clicked called a method using data binding without declaring a command on the view model</TextBlock>
-        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="1">
+        <UniformGrid Rows="1" Grid.Row="1">
+            <CheckBox Content="Can execute" IsChecked="{Binding CanDoSomething}"/>
+            <Button Command="{Binding DoSomething}" Content="Do something"/>
+        </UniformGrid>
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="2">
             <TextBlock >View Model</TextBlock>
         </Border>
-        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="1" Grid.Column="1">
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="2" Grid.Column="1">
             <TextBlock >View</TextBlock>
         </Border>
-        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="2" >
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="3" >
             <TextBlock TextWrapping="Wrap" FontFamily="Consolas" xml:space="preserve">
 <Run Foreground="red">[TypeDescriptionProvider(typeof(MethodBinding))]</Run>
 class DemoSelectionViewModel : INotifyPropertyChanged
@@ -34,7 +39,7 @@ class DemoSelectionViewModel : INotifyPropertyChanged
     }
 }</TextBlock>
         </Border>
-        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="2" Grid.Column="1" >
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="3" Grid.Column="1" >
             <TextBlock TextWrapping="Wrap" FontFamily="Consolas" xml:space="preserve">
 &lt;Button Command="<Run Foreground="red">{Binding MethodBindingDemo}</Run>"&gt;
    &lt;TextBlock TextWrapping="Wrap" Text="Bind to method demo"/&gt;
@@ -42,7 +47,7 @@ class DemoSelectionViewModel : INotifyPropertyChanged
 
             </TextBlock>
         </Border>
-        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap">
+        <TextBlock Grid.Row="4" Grid.ColumnSpan="2" TextWrapping="Wrap">
             Adding an attribute to your view model will create a "fake" property of type ICommand for each method in
             the class that accepts one or two parameters.<LineBreak/><LineBreak/>
             This will not interfere with normal data binding 

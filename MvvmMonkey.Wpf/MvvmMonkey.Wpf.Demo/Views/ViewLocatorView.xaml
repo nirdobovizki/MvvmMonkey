@@ -15,13 +15,17 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <TextBlock Grid.ColumnSpan="2" TextWrapping="Wrap" FontSize="17">The button you just clicked found the view for the view model with no mapping anywhere in the code</TextBlock>
+        <TextBlock Grid.ColumnSpan="3" TextWrapping="Wrap" FontSize="17">The button you just clicked found the view for the view model with no mapping anywhere in the code</TextBlock>
         <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="1">
             <TextBlock >View Model</TextBlock>
         </Border>
         <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="1" Grid.Column="1">
             <TextBlock >View</TextBlock>
+        </Border>
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="1" Grid.Column="2">
+            <TextBlock >Setup</TextBlock>
         </Border>
         <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="2" >
             <TextBlock TextWrapping="Wrap" FontFamily="Consolas" xml:space="preserve">
@@ -35,11 +39,23 @@ class DemoSelectionViewModel : INotifyPropertyChanged
         </Border>
         <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="2" Grid.Column="1" >
             <TextBlock TextWrapping="Wrap" FontFamily="Consolas" xml:space="preserve">
-&lt;monkey:ViewLocator DataContext="<Run Foreground="red">{Binding Child}</Run>"/&gt;
+&lt;ContentControl DataContext="<Run Foreground="red">{Binding Child}</Run>"/&gt;
 
             </TextBlock>
         </Border>
-        <TextBlock Grid.Row="3" Grid.ColumnSpan="2" TextWrapping="Wrap">
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="2" Grid.Column="2" >
+            <TextBlock TextWrapping="Wrap" FontFamily="Consolas" xml:space="preserve">
+    public partial class App : Application
+    {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            ViewLocator.RegisterViews(Resources, typeof(App).Assembly);
+            base.OnStartup(e);
+        }
+    }
+            </TextBlock>
+        </Border>
+        <TextBlock Grid.Row="3" Grid.ColumnSpan="3" TextWrapping="Wrap">
             The ViewLocator, when given an object using DataContext - if that object's calss name end with "ViewModel", will find a type
             in the same assembly with the same name but that ends with "View" and automatically create an instance of it
         </TextBlock>

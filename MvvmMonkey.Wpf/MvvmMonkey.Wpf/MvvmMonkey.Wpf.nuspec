@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Nir Dobovizki</authors>
+    <owners>Nir Dobovizki</owners>
+    <licenseUrl>https://github.com/nirdobovizki/MvvmMonkey/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/nirdobovizki/MvvmMonkey</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>MvvmMonkey is a low-overhead library that take a little bit of the boiler-plate (and pain) out of MVVM</description>
+    <releaseNotes>First nuget version of MvvmMonkey.</releaseNotes>
+    <copyright>Copyright 2017</copyright>
+    <tags>wpf</tags>
+  </metadata>
+</package>

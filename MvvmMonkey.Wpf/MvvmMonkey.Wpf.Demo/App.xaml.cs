@@ -15,6 +15,7 @@ namespace NirDobovizki.MvvmMonkey.Wpf.Demo
     {
         protected override void OnStartup(StartupEventArgs e)
         {
+            ViewLocator.RegisterViews(Resources, typeof(App).Assembly);
             base.OnStartup(e);
         }
     }

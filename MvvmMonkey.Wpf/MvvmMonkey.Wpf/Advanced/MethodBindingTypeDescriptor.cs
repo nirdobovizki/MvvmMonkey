@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -84,9 +85,26 @@ namespace NirDobovizki.MvvmMonkey.Advanced
             }
             foreach(var currentMethod in _objectType.GetMethods())
             {
-                if(currentMethod.GetParameters().Length<=1)
+                PropertyInfo canExecuteProperty = null;
+                if (currentMethod.GetParameters().Length<=1 &&
+                    (currentMethod.ReturnType == typeof(void)||
+                    currentMethod.ReturnType == typeof(Task)))
                 {
-                    result.Add(new CommandMethodPropertyDescriptor(_objectType, currentMethod));
+                    try
+                    {
+                        canExecuteProperty = _objectType.GetProperty("Can" + currentMethod.Name);
+                        if( canExecuteProperty!=null &&
+                            canExecuteProperty.PropertyType != typeof(bool) )
+                        {
+                            canExecuteProperty = null;
+                        }
+                    }
+                    catch(Exception ex)
+                    {
+                        canExecuteProperty = null;
+                        System.Diagnostics.Debug.WriteLine("MvvmMonkey.MethodBinding: exception when trying to fine can execute method for " + currentMethod.Name + ":" + ex.ToString());
+                    }
+                    result.Add(new CommandMethodPropertyDescriptor(_objectType, currentMethod, canExecuteProperty));
                 }
             }
 
