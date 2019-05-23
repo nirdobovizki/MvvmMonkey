@@ -57,8 +57,8 @@ namespace NirDobovizki.MvvmMonkey.Advanced
             Func<object, bool> canExecuteDelegate = null;
             if(_canExecuteMethodInfo != null)
             {
-                var get = _canExecuteMethodInfo.GetAccessors(false);
-                if (get != null && get.Length == 1)
+                var get = _canExecuteMethodInfo.GetAccessors(false).Where(mi => mi.Name.StartsWith("get_")).ToArray();
+                if (get.Length == 1)
                 {
                     var d = (Func<bool>)get[0].CreateDelegate(typeof(Func<bool>), component);
                     canExecuteDelegate = _ => d();

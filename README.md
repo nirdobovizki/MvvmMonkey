@@ -23,7 +23,7 @@ accedently clickign it again while waiting.
 View Model:
 
     [TypeDescriptionProvider(typeof(MethodBinding))]
-    class DemoSelectionViewModel : INotifyPropertyChanged
+    class DemoSelectionViewModel 
     {
         public void MethodBindingDemo()
         {
@@ -36,6 +36,44 @@ View:
     <Button Command="{Binding MethodBindingDemo}">
         <TextBlock TextWrapping="Wrap" Text="Bind to method demo"/>
     </Button>
+
+If you have a proeprty with the same name as the method with the "Can" 
+prefix that returns bool that property will be returnd by CanExecute.
+To fire CanExecuteChanged just raise the PropertyChanged event for 
+that property.
+
+View Model:
+    
+	[TypeDescriptionProvider(typeof(MethodBinding))]
+    public class MethodBindingViewModel : INotifyPropertyChanged
+    {
+        public void DoSomething()
+        {
+            System.Windows.MessageBox.Show("did something");
+        }
+
+        private bool _canDoSomething = true;
+        public bool CanDoSomething
+        {
+            get { return _canDoSomething; }
+            set
+            {
+                if (_canDoSomething != value)
+                {
+                    _canDoSomething = value;
+                    PropertyChange.Notify(this, PropertyChanged);
+                }
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+    }
+
+View:
+
+    <CheckBox Content="Can execute" IsChecked="{Binding CanDoSomething}"/>
+    <Button Command="{Binding DoSomething}" Content="Do something"/>
+
 
 Password Binding
 ---

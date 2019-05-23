@@ -16,8 +16,6 @@ namespace NirDobovizki.MvvmMonkey.Wpf.Demo.ViewModels
             System.Windows.MessageBox.Show("yey");
         }
 
-        
-
         public void DoSomething()
         {
             System.Windows.MessageBox.Show("did something");
