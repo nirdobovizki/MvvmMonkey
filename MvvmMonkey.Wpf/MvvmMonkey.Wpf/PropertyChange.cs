@@ -17,5 +17,25 @@ namespace NirDobovizki.MvvmMonkey
                 handler(caller, new PropertyChangedEventArgs(propertyName));
             }
         }
+
+        public static void Set<T>(object caller, ref T field, T value, PropertyChangedEventHandler handler, [CallerMemberName] string propertyName = "") 
+        {
+            if(typeof(T).IsClass)
+            {
+                if(!object.ReferenceEquals(field,value))
+                {
+                    field = value;
+                    handler?.Invoke(caller, new PropertyChangedEventArgs(propertyName));
+                }
+            }
+            else
+            {
+                if(field.Equals(value))
+                {
+                    field = value;
+                    handler?.Invoke(caller, new PropertyChangedEventArgs(propertyName));
+                }
+            }
+        }
     }
 }

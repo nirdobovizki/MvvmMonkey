@@ -29,14 +29,7 @@ namespace NirDobovizki.MvvmMonkey.Wpf.Demo.ViewModels
         public object Child
         {
             get { return _child; }
-            set
-            {
-                if(_child!=value)
-                {
-                    _child = value;
-                    PropertyChange.Notify(this, PropertyChanged);
-                }
-            }
+            set { PropertyChange.Set(this, ref _child, value, PropertyChanged); }
         }
     }
 }

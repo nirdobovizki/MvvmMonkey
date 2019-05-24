@@ -17,7 +17,7 @@ namespace NirDobovizki.MvvmMonkey.Wpf.Demo.ViewModels
         public bool Enabled
         {
             get { return _enabled; }
-            set { _enabled = value; PropertyChange.Notify(this, PropertyChanged);  }
+            set { PropertyChange.Set(this, ref _enabled, value, PropertyChanged); }
         }
 
         private DelegateCommand _enableCommand;

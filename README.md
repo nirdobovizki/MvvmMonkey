@@ -153,6 +153,15 @@ change you class heirarcy to use it
         }
     }
 
+Or
+
+    private bool _enabled = true;
+    public bool Enabled
+    {
+        get { return _enabled; }
+        set { PropertyChange.Set(this, ref _enabled, value, PropertyChanged); }
+    }
+
 
 Window Manager
 ---
