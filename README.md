@@ -56,14 +56,7 @@ View Model:
         public bool CanDoSomething
         {
             get { return _canDoSomething; }
-            set
-            {
-                if (_canDoSomething != value)
-                {
-                    _canDoSomething = value;
-                    PropertyChange.Notify(this, PropertyChanged);
-                }
-            }
+            set { PropertyChange.Set(this, ref _canDoSomething, value, PropertyChanged); }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
