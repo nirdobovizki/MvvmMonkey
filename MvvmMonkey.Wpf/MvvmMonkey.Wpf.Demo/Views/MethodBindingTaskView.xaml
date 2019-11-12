@@ -10,6 +10,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -20,13 +21,19 @@
         <Grid Grid.Row="1" Margin="20" Grid.ColumnSpan="2">
             <Button MaxWidth="100" HorizontalAlignment="Stretch" Command="{Binding CallDelay}">Call Delay</Button>
         </Grid>
-        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="2">
+        <UniformGrid Rows="1" Grid.Row="2" Grid.ColumnSpan="2">
+            <TextBox Name="paramBox"/>
+            <CheckBox Content="Can execute" IsChecked="{Binding CanDoSomethingParam}"/>
+            <Button Command="{Binding DoSomethingParam}" CommandParameter="{Binding Text,ElementName=paramBox}" Content="Do something"/>
+        </UniformGrid>
+
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="3">
             <TextBlock >View Model</TextBlock>
         </Border>
-        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="2" Grid.Column="1">
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="3" Grid.Column="1">
             <TextBlock >View</TextBlock>
         </Border>
-        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="3" >
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="4" >
             <TextBlock TextWrapping="Wrap" FontFamily="Consolas" xml:space="preserve">
 <Run Foreground="red">[TypeDescriptionProvider(typeof(MethodBinding))]</Run>
 class MethodBindingTaskViewModel
@@ -38,7 +45,7 @@ class MethodBindingTaskViewModel
 }
             </TextBlock>
         </Border>
-        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="3" Grid.Column="1" >
+        <Border Padding="3" BorderThickness="1" BorderBrush="Gray" Grid.Row="4" Grid.Column="1" >
             <TextBlock TextWrapping="Wrap" FontFamily="Consolas" xml:space="preserve">
 &lt;Button Command="<Run Foreground="red">{Binding CallDelay}</Run>"&gt;Call Delay&lt;/Button&gt;
             </TextBlock>

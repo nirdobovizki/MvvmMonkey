@@ -18,6 +18,11 @@ namespace NirDobovizki.MvvmMonkey.Commands
             _execute = target;
             _canExecute = canExecute;
         }
+        public AsyncDelegateCommand(Func<object, Task> target, Func<bool> canExecute = null)
+        {
+            _execute = target;
+            _canExecute = canExecute != null ? (Func<object, bool>)(_ => canExecute()) : null;
+        }
 
         public override bool CanExecute(object parameter)
         {
@@ -56,6 +61,11 @@ namespace NirDobovizki.MvvmMonkey.Commands
     {
         public AsyncDelegateCommand(Func<T, Task> execute, Func<T, bool> canExecute) :
             base(o => execute((T)o), canExecute == null ? (Func<object, bool>)null : o => canExecute((T)o))
+        {
+
+        }
+        public AsyncDelegateCommand(Func<T, Task> execute, Func<bool> canExecute) :
+            base(o => execute((T)o), canExecute == null ? (Func<object, bool>)null : _ => canExecute())
         {
 
         }

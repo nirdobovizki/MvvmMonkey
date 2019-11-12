@@ -28,6 +28,18 @@ namespace NirDobovizki.MvvmMonkey.Wpf.Demo.ViewModels
             set { PropertyChange.Set(this, ref _canDoSomething, value, PropertyChanged); }
         }
 
+        public void DoSomethingParam(string p)
+        {
+            System.Windows.MessageBox.Show(p);
+        }
+
+        private bool _canDoSomethingParam = true;
+        public bool CanDoSomethingParam
+        {
+            get { return _canDoSomethingParam; }
+            set { PropertyChange.Set(this, ref _canDoSomethingParam, value, PropertyChanged); }
+        }
+
 
         public event PropertyChangedEventHandler PropertyChanged;
     }

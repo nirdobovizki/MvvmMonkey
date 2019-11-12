@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -54,54 +55,68 @@ namespace NirDobovizki.MvvmMonkey.Advanced
 
         public override object GetValue(object component)
         {
-            Func<object, bool> canExecuteDelegate = null;
+            Func<bool> canExecuteDelegate = null;
             if(_canExecuteMethodInfo != null)
             {
                 var get = _canExecuteMethodInfo.GetAccessors(false).Where(mi => mi.Name.StartsWith("get_")).ToArray();
                 if (get.Length == 1)
                 {
-                    var d = (Func<bool>)get[0].CreateDelegate(typeof(Func<bool>), component);
-                    canExecuteDelegate = _ => d();
+                    canExecuteDelegate = (Func<bool>)get[0].CreateDelegate(typeof(Func<bool>), component);
                 }
-                /*if (_canExecuteMethodInfo.GetParameters().Length == 0)
-                {
-                    var d = (Func<bool>)_canExecuteMethodInfo.CreateDelegate(typeof(Func<bool>), component);
-                    canExecuteDelegate = _=>d();
-                }
-                else
-                {
-                    canExecuteDelegate = (Func<object, bool>)_canExecuteMethodInfo.CreateDelegate(typeof(Func<object, bool>), component);
-                }*/
             }
 
             CommandBase command;
+            var executeMethodParams = _executeMethodInfo.GetParameters();
             if (_executeMethodInfo.ReturnType == typeof(Task))
             {
-                if (_executeMethodInfo.GetParameters().Length == 0)
+                if (executeMethodParams.Length == 0)
                 {
                     var d = (Func<Task>)_executeMethodInfo.CreateDelegate(typeof(Func<Task>), component);
                     command = new AsyncDelegateCommand(_ => d(), canExecuteDelegate);
                 }
+                else if (executeMethodParams.Length == 1)
+                {
+                    var delegateType = typeof(Func<,>).MakeGenericType(executeMethodParams[0].ParameterType, typeof(Task));
+                    var d = _executeMethodInfo.CreateDelegate(delegateType, component);
+                    command = (CommandBase)typeof(AsyncDelegateCommand<>).
+                        MakeGenericType(executeMethodParams[0].ParameterType).
+                        GetConstructor(new Type[] { delegateType, typeof(Func<bool>) }).
+                        Invoke(new object[] { d, canExecuteDelegate });
+                }
                 else
                 {
-                    var d = (Func<object, Task>)_executeMethodInfo.CreateDelegate(typeof(Func<object, Task>), component);
-                    command = new AsyncDelegateCommand(d, canExecuteDelegate);
+                    Debug.WriteLine($"MvvmMonkey: method {_executeMethodInfo.DeclaringType.Name}.{_executeMethodInfo.Name} must take zero or one parameters to be used as a command");
+                    return null;
                 }
             }
-            else
+            else if (_executeMethodInfo.ReturnType == typeof(void))
             {
-                if (_executeMethodInfo.GetParameters().Length == 0)
+                if (executeMethodParams.Length == 0)
                 {
                     var d = (Action)_executeMethodInfo.CreateDelegate(typeof(Action), component);
                     command = new DelegateCommand(_ => d(), canExecuteDelegate);
                 }
+                else if (executeMethodParams.Length == 1)
+                {
+                    var delegateType = typeof(Action<>).MakeGenericType(executeMethodParams[0].ParameterType);
+                    var d = _executeMethodInfo.CreateDelegate(delegateType, component);
+                    command = (CommandBase)typeof(DelegateCommand<>).
+                        MakeGenericType(executeMethodParams[0].ParameterType).
+                        GetConstructor(new Type[] { delegateType, typeof(Func<bool>) }).
+                        Invoke(new object[] { d, canExecuteDelegate });
+                }
                 else
                 {
-                    var d = (Action<object>)_executeMethodInfo.CreateDelegate(typeof(Action<object>), component);
-                    command =  new DelegateCommand(d, canExecuteDelegate);
+                    Debug.WriteLine($"MvvmMonkey: method {_executeMethodInfo.DeclaringType.Name}.{_executeMethodInfo.Name} must take zero or one parameters to be used as a command");
+                    return null;
                 }
             }
-            if(canExecuteDelegate!=null && _canExecuteMethodInfo!=null)
+            else
+            {
+                Debug.WriteLine($"MvvmMonkey: method {_executeMethodInfo.DeclaringType.Name}.{_executeMethodInfo.Name} must return void or Task to be used as a command");
+                return null;
+            }
+            if (canExecuteDelegate!=null && _canExecuteMethodInfo!=null)
             {
                 var inpc = component as INotifyPropertyChanged;
                 if (inpc != null)

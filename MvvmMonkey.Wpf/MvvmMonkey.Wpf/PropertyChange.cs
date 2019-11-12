@@ -30,7 +30,7 @@ namespace NirDobovizki.MvvmMonkey
             }
             else
             {
-                if(field.Equals(value))
+                if(!field.Equals(value))
                 {
                     field = value;
                     handler?.Invoke(caller, new PropertyChangedEventArgs(propertyName));
